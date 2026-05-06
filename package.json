@@ -1,7 +1,11 @@
 {
   "name": "lux-countdown",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pathompuam/LuxCountdown.git"
+  },
   "main": "dist-electron/main.mjs",
   "author": "Lux",
   "description": "A stylish desktop countdown widget.",
@@ -11,11 +15,19 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "dist": "npm run build && electron-builder"
+    "dist": "npm run build && electron-builder",
+    "release": "npm run build && electron-builder --publish always"
   },
   "build": {
     "appId": "com.lux.countdown",
     "productName": "Lux Countdown",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "pathompuam",
+        "repo": "LuxCountdown"
+      }
+    ],
     "directories": {
       "output": "release/${version}"
     },
