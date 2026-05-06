@@ -2,7 +2,10 @@
 
 **Lux Countdown** เป็นแอปพลิเคชัน Desktop Widget ที่ออกแบบมาให้เรียบหรู ทันสมัย และช่วยให้คุณไม่พลาดทุกเหตุการณ์สำคัญในชีวิต พัฒนาโดยคุณ **Lux**
 
-![Lux Countdown Preview](ref/LOGO.png)
+<p align="center">
+  <img src="ref/example1.png" width="350" alt="Main View" />
+  <img src="ref/example2.png" width="250" alt="Settings View" />
+</p>
 
 ## ✨ ฟีเจอร์เด่น (Key Features)
 
