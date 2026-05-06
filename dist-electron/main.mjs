@@ -36,8 +36,7 @@ function saveWindowState() {
 }
 function createTray() {
 	try {
-		const iconName = process.platform === "win32" ? "tray-icon.png" : "favicon.svg";
-		const iconPath = path.join(process.env.VITE_PUBLIC, iconName);
+		const iconPath = path.join(process.env.VITE_PUBLIC, "tray-icon.png");
 		if (!fs.existsSync(iconPath)) {
 			console.error("Tray icon not found at:", iconPath);
 			return;
@@ -58,7 +57,7 @@ function createTray() {
 				click: () => app.quit()
 			}
 		]);
-		tray.setToolTip("Countdown Widget");
+		tray.setToolTip("Lux Countdown");
 		tray.setContextMenu(contextMenu);
 		tray.on("click", () => {
 			if (win?.isVisible()) win.hide();
@@ -70,6 +69,7 @@ function createTray() {
 }
 function createWindow() {
 	const state = loadWindowState();
+	const iconPath = path.join(process.env.VITE_PUBLIC, "favicon.png");
 	win = new BrowserWindow({
 		x: state.x,
 		y: state.y,
@@ -80,6 +80,8 @@ function createWindow() {
 		resizable: true,
 		alwaysOnTop: false,
 		skipTaskbar: true,
+		icon: iconPath,
+		title: "Lux Countdown",
 		webPreferences: {
 			preload: preloadPath,
 			nodeIntegration: false,
@@ -107,6 +109,7 @@ ipcMain.on("open-settings", () => {
 		width: 450,
 		height: 600,
 		title: "Settings",
+		icon: path.join(process.env.VITE_PUBLIC, "favicon.png"),
 		autoHideMenuBar: true,
 		backgroundColor: "#1a1a20",
 		show: false,
