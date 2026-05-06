@@ -9,7 +9,8 @@ process.env.APP_ROOT = path.join(__dirname, "..");
 var VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 var MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
 var RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
-process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, "public") : RENDERER_DIST;
+var VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, "public") : RENDERER_DIST;
+process.env.VITE_PUBLIC = VITE_PUBLIC;
 var win = null;
 var settingsWin = null;
 var tray = null;
@@ -36,7 +37,7 @@ function saveWindowState() {
 }
 function createTray() {
 	try {
-		const iconPath = path.join(process.env.VITE_PUBLIC, "tray-icon.png");
+		const iconPath = path.join(VITE_PUBLIC, "tray-icon.png");
 		if (!fs.existsSync(iconPath)) {
 			console.error("Tray icon not found at:", iconPath);
 			return;
@@ -69,7 +70,7 @@ function createTray() {
 }
 function createWindow() {
 	const state = loadWindowState();
-	const iconPath = path.join(process.env.VITE_PUBLIC, "favicon.png");
+	const iconPath = path.join(VITE_PUBLIC, "favicon.png");
 	win = new BrowserWindow({
 		x: state.x,
 		y: state.y,
@@ -109,7 +110,7 @@ ipcMain.on("open-settings", () => {
 		width: 450,
 		height: 600,
 		title: "Settings",
-		icon: path.join(process.env.VITE_PUBLIC, "favicon.png"),
+		icon: path.join(VITE_PUBLIC, "favicon.png"),
 		autoHideMenuBar: true,
 		backgroundColor: "#1a1a20",
 		show: false,

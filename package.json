@@ -3,12 +3,42 @@
   "private": true,
   "version": "0.0.0",
   "main": "dist-electron/main.mjs",
+  "author": "Lux",
+  "description": "A stylish desktop countdown widget.",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "dist": "npm run build && electron-builder"
+  },
+  "build": {
+    "appId": "com.lux.countdown",
+    "productName": "Lux Countdown",
+    "directories": {
+      "output": "release/${version}"
+    },
+    "files": [
+      "dist",
+      "dist-electron"
+    ],
+    "win": {
+      "icon": "public/favicon.png",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "shortcutName": "Lux Countdown"
+    }
   },
   "dependencies": {
     "lucide-react": "^1.14.0",

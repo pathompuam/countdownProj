@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, Tray, Menu, screen } from 'electron'
+import { app, BrowserWindow, ipcMain, Tray, Menu } from 'electron'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import fs from 'node:fs'
@@ -12,7 +12,8 @@ export const VITE_DEV_SERVER_URL = process.env['VITE_DEV_SERVER_URL']
 export const MAIN_DIST = path.join(process.env.APP_ROOT, 'dist-electron')
 export const RENDERER_DIST = path.join(process.env.APP_ROOT, 'dist')
 
-process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, 'public') : RENDERER_DIST
+const VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, 'public') : RENDERER_DIST
+process.env.VITE_PUBLIC = VITE_PUBLIC
 
 let win: BrowserWindow | null = null
 let settingsWin: BrowserWindow | null = null
@@ -44,7 +45,7 @@ function saveWindowState() {
 function createTray() {
   try {
     const iconName = 'tray-icon.png'
-    const iconPath = path.join(process.env.VITE_PUBLIC, iconName)
+    const iconPath = path.join(VITE_PUBLIC, iconName)
     
     if (!fs.existsSync(iconPath)) {
       console.error('Tray icon not found at:', iconPath)
@@ -76,7 +77,7 @@ function createTray() {
 
 function createWindow() {
   const state = loadWindowState()
-  const iconPath = path.join(process.env.VITE_PUBLIC, 'favicon.png')
+  const iconPath = path.join(VITE_PUBLIC, 'favicon.png')
   
   win = new BrowserWindow({
     x: state.x,
@@ -130,7 +131,7 @@ ipcMain.on('open-settings', () => {
     width: 450,
     height: 600,
     title: 'Settings',
-    icon: path.join(process.env.VITE_PUBLIC, 'favicon.png'),
+    icon: path.join(VITE_PUBLIC, 'favicon.png'),
     autoHideMenuBar: true,
     backgroundColor: '#1a1a20',
     show: false,
