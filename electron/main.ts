@@ -140,6 +140,12 @@ function createWindow() {
     },
   })
 
+  // Ensure window starts in bounds
+  win.once('ready-to-show', () => {
+    keepWindowInBounds()
+    win?.show()
+  })
+
   // Save state and keep in bounds on move/resize
   win.on('move', () => {
     keepWindowInBounds()
